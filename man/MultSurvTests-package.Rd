@@ -58,7 +58,7 @@ L.J. Wei & J.M. Lachin, Two-Sample Asymptotically Distribution-Free Tests for In
 
 \keyword{ package }
 \seealso{
- \link{\code{Perhaps link to github repository}}
+ \code{Perhaps link to github repository}
 }
 \examples{
 data <- as.matrix(wltestdata)
