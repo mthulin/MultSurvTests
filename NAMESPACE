@@ -1,3 +1,4 @@
 useDynLib(MultSurvTests)
 importFrom(Rcpp, evalCpp)
+importFrom("utils", "setTxtProgressBar", "txtProgressBar")
 exportPattern("^[[:alpha:]]+")
