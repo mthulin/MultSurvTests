@@ -1,0 +1,341 @@
+#include <RcppArmadillo.h>
+//[[Rcpp::depends(RcppArmadillo)]]
+using namespace Rcpp;
+
+/*Note: every function has a list of unused parameters*/
+/*-------------Y_ik-------------*/
+// [[Rcpp::export]]
+double Yik_cpp_arma(arma::mat x, int t, int k)
+{
+	double length = 0;
+	arma::vec x_k = x.col(k-1);
+	arma::vec::const_iterator it_end = x_k.end(); 
+
+	/*Arma iterator type*/
+	for(arma::vec::const_iterator it = x_k.begin(); it != it_end; ++it)
+	{
+		/*it is a pointer of const. type. Need to dereference(*) to read
+		element it points to*/
+		if(*it >= t) 
+			length += 1;
+	}
+
+	return length;
+}
+
+/*-------------summand.G-------------*/
+/* x */
+// [[Rcpp::export]]
+double summandG_cpp_arma(arma::mat x, arma::mat y, int n, 
+				 int t, double t_delta, int k)
+{
+	double G_sum = 0;
+	
+	G_sum = (t_delta * Yik_cpp_arma(y, t, k) ) / n;
+
+	return G_sum;
+}
+
+/*-------------summand.L-------------*/
+/* n */
+// [[Rcpp::export]]
+double summandL_cpp_arma(arma::mat x, arma::mat y, int n, int t, 
+	double t_delta, int k)
+{
+	double L_sum;
+	double Yik_1 = Yik_cpp_arma(x,t,k);
+	double Yik_2 = Yik_cpp_arma(y,t,k);
+
+	L_sum = t_delta*Yik_2 / (Yik_1 + Yik_2);
+
+	return L_sum;
+}
+
+/*-------------gehan.test-------------*/
+// [[Rcpp::export]]
+double GehanTest_cpp_arma(arma::mat x, arma::mat y, int n1, int n2, 
+	arma::mat delta_x, arma::mat delta_y, int k)
+{
+	arma::vec x_k = x.col(k-1), y_k = y.col(k-1),
+		delta_x_k = delta_x.col(k-1), delta_y_k = delta_y.col(k-1);
+	int n = n1+n2;
+
+	double T = 0;
+
+	for(int i = 0; i < n1; ++i)
+	{
+		T += summandG_cpp_arma(x, y, n, x_k(i), delta_x_k(i), k);
+	}
+	for(int j = 0; j < n2; ++j)
+	{
+		T -= summandG_cpp_arma(y, x, n, y_k(j), delta_y_k(j), k);
+	}
+
+	return T / pow(n, 0.5);
+}
+
+/*--------------mvlogrank.test----------------*/
+
+// [[Rcpp::export]]
+double mvlogrankTest_cpp_arma(arma::mat x, arma::mat y, int n1, int n2,
+	arma::mat delta_x, arma::mat delta_y, int k)
+{
+	arma::vec x_k = x.col(k-1), y_k = y.col(k-1),
+		delta_x_k = delta_x.col(k-1), delta_y_k = delta_y.col(k-1);
+	
+	int n = n1+n2;
+	double T = 0;
+
+	/*iterators of const type*/
+	arma::vec::const_iterator it_end = x_k.end(), it_end2 = y_k.end(),
+		it_end3 = delta_x_k.end(), it_end4 = delta_y_k.end();
+
+	for(arma::vec::const_iterator it = x_k.begin(), it3 = delta_x_k.begin(); 
+		it != it_end && it3 != it_end3; ++it, ++it3)
+	{
+		T += summandL_cpp_arma(x, y, n, *it, *it3, k);
+	}
+
+	for(arma::vec::const_iterator it2 = y_k.begin(), it4 = delta_y_k.begin();
+		it2 != it_end2 && it4 != it_end4; ++it2, ++it4)
+	{
+		T -= summandL_cpp_arma(y, x , n, *it2, *it4, k);
+	}
+
+	return T / pow(n ,0.5);
+}
+
+/*------------------------------------------------*/
+/*mu.G*/
+// [[Rcpp::export]]
+double muG_cpp_arma(arma::mat x, arma::mat y, int t, int k, int n = 0)
+{
+	arma::vec x_k = x.col(k-1), y_k = y.col(k-1);
+	int n1 = x_k.size() + y_k.size();
+	double T;
+	
+	if(n == 0) {
+		T = Yik_cpp_arma(y, t, k)/n1;
+	} else {
+		T = Yik_cpp_arma(y, t, k)/n;
+	}
+
+	return T;
+}
+
+/*------------------------------------------------*/
+/*mu.L*/
+// [[Rcpp::export]]
+double muL_cpp_arma(arma::mat x, arma::mat y, int t, int k)
+{
+	double T;
+
+	T = 1-(Yik_cpp_arma(x,t,k)/(Yik_cpp_arma(x,t,k) + Yik_cpp_arma(y, t, k)));
+	return T;
+}
+
+/*------------------------------------------------*/
+/*psi.G*/
+// [[Rcpp::export]]
+double psiG_cpp_arma(arma::mat x, arma::mat y, int t,
+	arma::mat delta_x, int k, int n)
+{
+	arma::vec x_k = x.col(k-1), delta_x_k = delta_x.col(k-1);
+	double S = 0;
+	
+	arma::vec::const_iterator it_end = x_k.end(), it_end2 = delta_x_k.end();
+
+	for(arma::vec::const_iterator it = x_k.begin(), it2 = delta_x_k.begin(); 
+		(it != it_end) && (it2 != it_end2); ++it, ++it2)
+	{
+		if(*it <= t){
+			S += *it2*muG_cpp_arma(x,y,*it,k,n)/Yik_cpp_arma(x, *it, k);
+		} else{ 
+			S += 0;
+		}
+	}
+
+	return S;
+}
+
+/*------------------------------------------------*/
+/*psi.L*/
+// [[Rcpp::export]]
+double psiL_cpp_arma(arma::mat x, arma::mat y, int t, 
+	arma::mat delta_x, int k)
+{
+	arma::vec x_k = x.col(k-1), delta_x_k = delta_x.col(k-1);
+	double S = 0;
+	arma::vec::const_iterator it_end = x_k.end(), 
+		it_end2 = delta_x_k.end();
+	
+	for(arma::vec::const_iterator it = x_k.begin(), it2 = delta_x_k.begin();
+		it != it_end && it2 != it_end2; ++it, ++it2)
+	{
+		if(*it <= t) {
+			S += *it2 * muL_cpp_arma(x,y,*it,k) / Yik_cpp_arma(x,*it,k);
+		} else {
+			S += 0;
+		}
+	}
+	return S; 
+}
+
+/*------------------------------------------------*/
+/*sigma.ikl.G*/
+/*removed int t, delta.y not used*/
+// [[Rcpp::export]]
+double sigma_iklG_cpp_arma(arma::mat x, arma::mat y,
+	arma::mat delta_x, arma::mat delta_y, int k, int l, int n)
+	{
+		arma::vec x_k = x.col(k-1), delta_x_k = delta_x.col(k-1),
+			x_l = x.col(l-1), delta_x_l = delta_x.col(l-1);
+		double U = 0;
+		int nx = x_k.size();
+
+		arma::vec::const_iterator it_end = x_k.end(), it_end2 = x_l.end(),
+			it_end3 = delta_x_k.end(), it_end4 = delta_x_l.end();
+
+		for(arma::vec::const_iterator it = x_k.begin(), it2 = x_l.begin(),
+			it3 = delta_x_k.begin(), it4 = delta_x_l.begin();
+			it != it_end && it2 != it_end2 && it3 != it_end3 && it4 != it_end4;
+			++it, ++it2, ++it3, ++it4)
+		{
+			U += (muG_cpp_arma(x, y, *it, k, n) * *it3 - psiG_cpp_arma(x, y, *it, delta_x, k, n)) *
+			(muG_cpp_arma(x, y, *it2, l, n) * *it4 - psiG_cpp_arma(x, y, *it2, delta_x, l, n));
+		}
+
+		return U / nx;
+	}
+
+/*-----------------------------------------------*/
+/*sigma.ikl.L*/
+// [[Rcpp::export]]
+double sigma_iklL_cpp_arma(arma::mat x, arma::mat y,
+	arma::mat delta_x, arma::mat delta_y, int k, int l)
+	{
+		arma::vec x_k = x.col(k-1), delta_x_k = delta_x.col(k-1),
+			x_l = x.col(l-1), delta_x_l = delta_x.col(l-1);
+		int nx = x_k.size();
+		double U = 0;
+
+		arma::vec::const_iterator it_end = x_k.end(), it_end2 = x_l.end(),
+			it_end3 = delta_x_k.end(), it_end4 = delta_x_l.end();
+
+		for(arma::vec::const_iterator it = x_k.begin(), it2 = x_l.begin(),
+			it3 = delta_x_k.begin(), it4 = delta_x_l.begin();
+			it != it_end && it2 != it_end2 && it3 != it_end3 && it4 != it_end4;
+			++it, ++it2, ++it3, ++it4)
+		{
+			U += (muL_cpp_arma(x, y, *it, k) * *it3 - psiL_cpp_arma(x, y, *it, delta_x, k)) *
+			(muL_cpp_arma(x, y, *it2, l) * *it4 - psiL_cpp_arma(x, y, *it2, delta_x, l));
+		}
+
+		return U / nx;
+	}
+
+/*-----------------------------------------------*/
+/*sigma.kl.G*/
+// [[Rcpp::export]]
+double sigma_klG_cpp_arma(arma::mat x, arma::mat y,
+	arma::mat delta_x, arma::mat delta_y, int k, int l,
+	int n1, int n2)
+{
+	int n = n1+n2;
+	double sigma_klg = 0;
+	
+	sigma_klg = sigma_iklG_cpp_arma(x,y,delta_x, delta_y,k,l,n) * n1 / n + 
+	sigma_iklG_cpp_arma(y,x,delta_y,delta_x,k,l,n) * n2 / n;
+	
+	return sigma_klg;
+}
+
+/*-----------------------------------------------*/
+/*sigma.kl.L*/
+// [[Rcpp::export]]
+double sigma_klL_cpp_arma(arma::mat x, arma::mat y,
+	arma::mat delta_x, arma::mat delta_y, int k, int l,
+	int n1, int n2)
+{
+	int n = n1+n2;
+	double sigma_klL = 0;
+
+	sigma_klL = sigma_iklL_cpp_arma(x,y,delta_x,delta_y,k,l) * n1 / n + 
+	sigma_iklL_cpp_arma(y,x,delta_y,delta_x,k,l) * n2 / n;
+
+	return sigma_klL;
+}
+
+/*-----------------------------------------------*/
+/*sigma.G*/
+// [[Rcpp::export]]
+arma::mat sigma_G_cpp_arma(arma::mat x, arma::mat y,
+	arma::mat delta_x, arma::mat delta_y, int k, int l,
+	int n1, int n2, int p)
+{
+	arma::mat sigma(p,p);
+	sigma.zeros();
+	
+	for(int i = 0; i < p ; i++){
+		for(int j = i ; j < p ; j++){
+			sigma (j, i) = sigma_klG_cpp_arma(x, y, delta_x, delta_y, i+1, j+1, n1, n2);
+			sigma(i, j) = sigma (j, i);
+		}
+	}
+
+	return sigma;
+}
+
+/*-----------------------------------------------*/
+/*Sigma L*/
+// [[Rcpp::export]]
+arma::mat sigma_L_cpp_arma(arma::mat x, arma::mat y, 
+	arma::mat delta_x, arma::mat delta_y, int k, int l,
+	int n1, int n2, int p)
+{
+	arma::mat sigma(p,p);
+	sigma.zeros();
+
+	for(int i = 0; i < p ; i++){
+		for(int j = i; j < p; j++){
+			sigma(j, i) = sigma_klL_cpp_arma(x, y, delta_x, delta_y, i+1, j+1, n1, n2);
+			sigma(i, j) = sigma(j, i);
+		}
+	}
+	return sigma;
+}
+
+/*-----------------SLUTLIGA TESTSTATISTIKOR-----------------*/
+/*gehan. R function returns 1by1*/
+// [[Rcpp::export]]
+arma::mat gehan(arma::mat x, arma::mat y, arma::mat delta_x,
+	arma::mat delta_y, int n1, int n2, int p, int k = 1, int l = 1)
+{
+	arma::Col<double> Ts(p);
+	Ts.zeros();
+
+	for(int i = 0; i < p; i++){
+		Ts(i) = GehanTest_cpp_arma(x, y, n1, n2, delta_x, delta_y, i+1);
+	}
+
+	return Ts.t() * inv(sigma_G_cpp_arma(x, y, delta_x, delta_y, k, l, n1, n2, p)) * Ts;
+
+}
+
+/*-----------------------------------------------*/
+/*mvlogrank.*/
+// [[Rcpp::export]]
+arma::mat mvlogrank(arma::mat x, arma::mat y,
+	arma::mat delta_x, arma::mat delta_y, int n1, int n2, 
+	int p, int k = 1, int l = 1)
+{
+	arma::Col<double> Ts(p);
+	Ts.zeros();
+
+	for(int i = 0; i < p; i++){
+		Ts(i) = mvlogrankTest_cpp_arma(x, y, n1, n2, delta_x, delta_y, i+1);
+	}
+
+	return Ts.t() * inv(sigma_L_cpp_arma(x, y, delta_x, delta_y, k, l, n1, n2, p)) * Ts;
+}
+

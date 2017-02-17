@@ -1,0 +1,15 @@
+Package: MultSurvTests
+Type: Package
+Title: Permutation Tests for Multivariate Survival Analysis
+Version: 1.0
+Date: 2017-02-16
+Author: Lukas Arnroth, Mans Thulin
+Maintainer: Lukas Arnroth <lukas.arnroth@gmail.com>
+Description: Gehan and Mvlogrank tests as outlined in L.J Wei & J.M Lachin (1984)
+License: What license is it under?
+Imports: Rcpp (>= 0.12.9)
+LinkingTo: Rcpp, RcppArmadillo
+LazyData: true
+RoxygenNote: 6.0.1
+URL: https://github.com/lukketotte/MultSurvTests
+BugReports: https://github.com/lukketotte/MultSurvTests/issues

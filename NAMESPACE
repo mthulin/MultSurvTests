@@ -1,0 +1,3 @@
+useDynLib(MultSurvTests)
+importFrom(Rcpp, evalCpp)
+exportPattern("^[[:alpha:]]+")
