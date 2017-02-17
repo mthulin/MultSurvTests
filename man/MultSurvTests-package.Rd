@@ -55,12 +55,10 @@ Maintainer: \packageMaintainer{MultSurvTests}
 \references{
 L.J. Wei & J.M. Lachin, Two-Sample Asymptotically Distribution-Free Tests for Incomplete Multivariate Observations, 1984, Journal of the American Statistical Association, Vol. 79, No.387
 }
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R ~~
-~~ documentation directory ~~
+
 \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
-~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
+ \link{\code{https://github.com/lukketotte/MultSurvTests}}
 }
 \examples{
 data <- as.matrix(wltestdata)
