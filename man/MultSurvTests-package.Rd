@@ -63,13 +63,13 @@ L.J. Wei & J.M. Lachin, Two-Sample Asymptotically Distribution-Free Tests for In
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
 }
 \examples{
-data <- wltestdata
+data <- as.matrix(wltestdata)
 x <- data[1:23, c(2, 4, 6, 8)]
-y <- data[24:47, c(2, 4, 6, 8)])
-delta.x <- data[1:23,c(3, 5, 7, 9)])
+y <- data[24:47, c(2, 4, 6, 8)]
+delta.x <- data[1:23,c(3, 5, 7, 9)]
 delta.y <- data[24:47, c(3, 5, 7,9)]
-z <- cbind(x, y)
-delta.z <- cbind(delta.x, delta.y)
+z <- rbind(x, y)
+delta.z <- rbind(delta.x, delta.y)
 
 n1<-dim(x)[1]
 n2<-dim(y)[1]
