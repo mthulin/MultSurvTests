@@ -1,5 +1,8 @@
 ### Gehan
-#' @title Perm_gehan
+#' Permutations of gehan test
+#' 
+#' Performs permutations of the gehan test through random sub sampling 
+#' 
 #' @param B Integer specifying the number of permutations to perform
 #' @param z A matrix which combines the x and y matricies
 #' @param delta.z A matrix which combines the delta.x and delta.y matricies

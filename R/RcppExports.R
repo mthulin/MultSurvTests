@@ -9,19 +9,3 @@ mvlogrank <- function(x, y, delta_x, delta_y, n1, n2, p, k = 1L, l = 1L) {
     .Call('MultSurvTests_mvlogrank', PACKAGE = 'MultSurvTests', x, y, delta_x, delta_y, n1, n2, p, k, l)
 }
 
-rcpparma_hello_world <- function() {
-    .Call('MultSurvTests_rcpparma_hello_world', PACKAGE = 'MultSurvTests')
-}
-
-rcpparma_outerproduct <- function(x) {
-    .Call('MultSurvTests_rcpparma_outerproduct', PACKAGE = 'MultSurvTests', x)
-}
-
-rcpparma_innerproduct <- function(x) {
-    .Call('MultSurvTests_rcpparma_innerproduct', PACKAGE = 'MultSurvTests', x)
-}
-
-rcpparma_bothproducts <- function(x) {
-    .Call('MultSurvTests_rcpparma_bothproducts', PACKAGE = 'MultSurvTests', x)
-}
-
