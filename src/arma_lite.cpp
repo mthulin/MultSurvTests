@@ -310,9 +310,11 @@ arma::mat sigma_L_cpp_arma(arma::mat x, arma::mat y,
 //' y <- data[24:47, c(2, 4, 6, 8)]
 //' delta.x <- data[1:23, c(3, 5, 7, 9)]
 //' delta.y <- data[24:47, c(3, 5, 7, 9)]
+//'
 //' n1 <- dim(x)[1]
 //' n2 <- dim(y)[1]
 //' p <- dim(x)[2]
+//'
 //' gehan(x, y, delta.x, delta.y, n1, n2, p)
 //' @export
 // [[Rcpp::export]]
@@ -330,8 +332,33 @@ arma::mat gehan(arma::mat x, arma::mat y, arma::mat delta_x,
 
 }
 
-/*-----------------------------------------------*/
-/*mvlogrank.*/
+//' Mvlogrank test
+//'
+//' Performs the mvlogrank test
+//'
+//' @param x Matrix
+//' @param y Matrix
+//' @param delta.x Matrix
+//' @param delta.y Matrix
+//' @param n1 Integer. Set as rows in x
+//' @param n2 Integer. Set as rows in y
+//' @param p Integer. No clue
+//'
+//' @return 1x1 matrix containing a numeric 
+//'
+//' @examples
+//' data <- as.matrix(wltestdata)
+//' x <- data[1:23, c(2, 4, 6, 8)]
+//' y <- data[24:47, c(2, 4, 6, 8)]
+//' delta.x <- data[1:23, c(3, 5, 7, 9)]
+//' delta.y <- data[24:47, c(3, 5, 7, 9)]
+//'
+//' n1 <- dim(x)[1]
+//' n2 <- dim(y)[1]
+//' p <- dim(x)[2]
+//'
+//' mvlogrank(x, y, delta.x, delta.y, n1, n2, p)
+//' @export
 // [[Rcpp::export]]
 arma::mat mvlogrank(arma::mat x, arma::mat y,
 	arma::mat delta_x, arma::mat delta_y, int n1, int n2, 
