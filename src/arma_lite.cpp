@@ -2,9 +2,10 @@
 //[[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 
-/*Note: every function has a list of unused parameters*/
+/* Note: this program attempts to lessen
+the number of functions exposed to the 
+user. */
 /*-------------Y_ik-------------*/
-// [[Rcpp::export]]
 double Yik_cpp_arma(arma::mat x, int t, int k)
 {
 	double length = 0;
@@ -24,8 +25,6 @@ double Yik_cpp_arma(arma::mat x, int t, int k)
 }
 
 /*-------------summand.G-------------*/
-/* x */
-// [[Rcpp::export]]
 double summandG_cpp_arma(arma::mat x, arma::mat y, int n, 
 				 int t, double t_delta, int k)
 {
@@ -37,8 +36,6 @@ double summandG_cpp_arma(arma::mat x, arma::mat y, int n,
 }
 
 /*-------------summand.L-------------*/
-/* n */
-// [[Rcpp::export]]
 double summandL_cpp_arma(arma::mat x, arma::mat y, int n, int t, 
 	double t_delta, int k)
 {
@@ -52,7 +49,6 @@ double summandL_cpp_arma(arma::mat x, arma::mat y, int n, int t,
 }
 
 /*-------------gehan.test-------------*/
-// [[Rcpp::export]]
 double GehanTest_cpp_arma(arma::mat x, arma::mat y, int n1, int n2, 
 	arma::mat delta_x, arma::mat delta_y, int k)
 {
@@ -75,8 +71,6 @@ double GehanTest_cpp_arma(arma::mat x, arma::mat y, int n1, int n2,
 }
 
 /*--------------mvlogrank.test----------------*/
-
-// [[Rcpp::export]]
 double mvlogrankTest_cpp_arma(arma::mat x, arma::mat y, int n1, int n2,
 	arma::mat delta_x, arma::mat delta_y, int k)
 {
@@ -107,7 +101,6 @@ double mvlogrankTest_cpp_arma(arma::mat x, arma::mat y, int n1, int n2,
 
 /*------------------------------------------------*/
 /*mu.G*/
-// [[Rcpp::export]]
 double muG_cpp_arma(arma::mat x, arma::mat y, int t, int k, int n = 0)
 {
 	arma::vec x_k = x.col(k-1), y_k = y.col(k-1);
@@ -125,7 +118,6 @@ double muG_cpp_arma(arma::mat x, arma::mat y, int t, int k, int n = 0)
 
 /*------------------------------------------------*/
 /*mu.L*/
-// [[Rcpp::export]]
 double muL_cpp_arma(arma::mat x, arma::mat y, int t, int k)
 {
 	double T;
@@ -136,7 +128,6 @@ double muL_cpp_arma(arma::mat x, arma::mat y, int t, int k)
 
 /*------------------------------------------------*/
 /*psi.G*/
-// [[Rcpp::export]]
 double psiG_cpp_arma(arma::mat x, arma::mat y, int t,
 	arma::mat delta_x, int k, int n)
 {
@@ -160,7 +151,6 @@ double psiG_cpp_arma(arma::mat x, arma::mat y, int t,
 
 /*------------------------------------------------*/
 /*psi.L*/
-// [[Rcpp::export]]
 double psiL_cpp_arma(arma::mat x, arma::mat y, int t, 
 	arma::mat delta_x, int k)
 {
@@ -184,7 +174,6 @@ double psiL_cpp_arma(arma::mat x, arma::mat y, int t,
 /*------------------------------------------------*/
 /*sigma.ikl.G*/
 /*removed int t, delta.y not used*/
-// [[Rcpp::export]]
 double sigma_iklG_cpp_arma(arma::mat x, arma::mat y,
 	arma::mat delta_x, arma::mat delta_y, int k, int l, int n)
 	{
@@ -210,7 +199,6 @@ double sigma_iklG_cpp_arma(arma::mat x, arma::mat y,
 
 /*-----------------------------------------------*/
 /*sigma.ikl.L*/
-// [[Rcpp::export]]
 double sigma_iklL_cpp_arma(arma::mat x, arma::mat y,
 	arma::mat delta_x, arma::mat delta_y, int k, int l)
 	{
@@ -236,7 +224,6 @@ double sigma_iklL_cpp_arma(arma::mat x, arma::mat y,
 
 /*-----------------------------------------------*/
 /*sigma.kl.G*/
-// [[Rcpp::export]]
 double sigma_klG_cpp_arma(arma::mat x, arma::mat y,
 	arma::mat delta_x, arma::mat delta_y, int k, int l,
 	int n1, int n2)
@@ -252,7 +239,6 @@ double sigma_klG_cpp_arma(arma::mat x, arma::mat y,
 
 /*-----------------------------------------------*/
 /*sigma.kl.L*/
-// [[Rcpp::export]]
 double sigma_klL_cpp_arma(arma::mat x, arma::mat y,
 	arma::mat delta_x, arma::mat delta_y, int k, int l,
 	int n1, int n2)
@@ -268,7 +254,6 @@ double sigma_klL_cpp_arma(arma::mat x, arma::mat y,
 
 /*-----------------------------------------------*/
 /*sigma.G*/
-// [[Rcpp::export]]
 arma::mat sigma_G_cpp_arma(arma::mat x, arma::mat y,
 	arma::mat delta_x, arma::mat delta_y, int k, int l,
 	int n1, int n2, int p)
@@ -288,7 +273,6 @@ arma::mat sigma_G_cpp_arma(arma::mat x, arma::mat y,
 
 /*-----------------------------------------------*/
 /*Sigma L*/
-// [[Rcpp::export]]
 arma::mat sigma_L_cpp_arma(arma::mat x, arma::mat y, 
 	arma::mat delta_x, arma::mat delta_y, int k, int l,
 	int n1, int n2, int p)
