@@ -33,7 +33,7 @@ perm_mvlogrank(B, z, delta.z, n1, n2, mv.test)
   \item{p}{an integer}
   \item{B}{an integer, number of permutations}
   \item{z}{a numeric matrix (x and y combined)}
-  \item{z.delta}{a numeric matrix (delta.x and delta.y             combined)}
+  \item{delta.z}{a numeric matrix (delta.x and delta.y             combined)}
   \item{g.test}{a numeric, result from gehan}
   \item{mv.test}{a numeric, result from mvlogrank}
 }
