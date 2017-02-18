@@ -13,6 +13,7 @@
 The DESCRIPTION file:
 \packageDESCRIPTION{MultSurvTests}
 \packageIndices{MultSurvTests}
+This needs to be fixed
 }
 
 \usage{
