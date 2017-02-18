@@ -27,3 +27,7 @@ Numeric
 \description{
 Performs permutations of the mvlogrank test through random sub sampling
 }
+\examples{
+See ?MultSurvTests
+
+}

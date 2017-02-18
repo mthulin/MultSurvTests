@@ -60,7 +60,7 @@ perm_gehan <- function(B, z, delta.z, n1, n2, p, g.test)
 #' 
 #' @return Numeric
 #' 
-#' @example 
+#' @examples 
 #' See ?MultSurvTests
 #' 
 #' @export
