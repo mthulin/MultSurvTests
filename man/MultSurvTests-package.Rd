@@ -78,6 +78,6 @@ g <- gehan(x, y, delta.x, delta.y, n1, n2, p)
 mv <- mvlogrank(x, y, delta.x, delta.y, n1, n2, p)
 
 perm_gehan(B = 100, z, delta.z, n1, n2, p, g)
-perm_mvlogrank(B = 100, z, delta.z, n1, n2, p, g)
+perm_mvlogrank(B = 100, z, delta.z, n1, n2, p, mv)
 
 }
