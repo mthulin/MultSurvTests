@@ -10,6 +10,12 @@
 #' @param n2 Integer. Shouled be specified as number of rows in the y matrix
 #' @param p Integer. No clue what it does
 #' @param g.test Numeric from gehan
+#' 
+#' @return Numeric
+#' 
+#' @examples
+#' See ?MultSurvTests
+#' 
 #' @export
 perm_gehan <- function(B, z, delta.z, n1, n2, p, g.test)
 {
@@ -40,6 +46,23 @@ perm_gehan <- function(B, z, delta.z, n1, n2, p, g.test)
 }
 
 ### Mvlogrank
+#' Permutations of mvlogrank test
+#' 
+#' Performs permutations of the mvlogrank test through random sub sampling 
+#' 
+#' @param B Integer specifying the number of permutations to perform
+#' @param z A matrix which combines the x and y matricies
+#' @param delta.z A matrix which combines the delta.x and delta.y matricies
+#' @param n1 Integer. Should be specified as number of rows in the x matrix
+#' @param n2 Integer. Shouled be specified as number of rows in the y matrix
+#' @param p Integer. No clue what it does
+#' @param g.test Numeric from gehan
+#' 
+#' @return Numeric
+#' 
+#' @example 
+#' See ?MultSurvTests
+#' 
 #' @export
 perm_mvlogrank <- function(B, z, delta.z, n1, n2, p, mv.test)
 {
