@@ -20,7 +20,7 @@ This needs to be fixed
 gehan(x, y, delta.x, delta.y, n1, n2, p)
 mvlogrank(x, y, delta.x, delta.y, n1, n2, p)
 perm_gehan(B, z, delta.z, n1, n2, g.test)
-perm_logrank(B, z, delta.z, n1, n2, mv.test)
+perm_mvlogrank(B, z, delta.z, n1, n2, mv.test)
 }
 
 \arguments{
