@@ -5,5 +5,5 @@
 #' \describe{
 #'   \item{V1:V9}{Randomly generated integers}
 #' }
-#' @source \url{http://www.diamondse.info/}
+#'
 "wltestdata"

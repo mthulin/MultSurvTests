@@ -2,32 +2,43 @@
 % Please edit documentation in R/finished_permutations.R
 \name{perm_mvlogrank}
 \alias{perm_mvlogrank}
-\title{Permutations of mvlogrank test}
+\title{Multivariate permutation logrank test}
 \usage{
-perm_mvlogrank(B, z, delta.z, n1, n2, p, mv.test)
+perm_mvlogrank(B, z, delta.z, n1)
 }
 \arguments{
-\item{B}{Integer specifying the number of permutations to perform}
+\item{B}{An integer specifying the number of permutations to perform. The default is 999. It is recommended to use \code{\link{choose_B}} for choosing \code{B}.}
 
-\item{z}{A matrix which combines the x and y matricies}
+\item{z}{A matrix containing the observed (possibly censored) survival times for the two groups. The observations for the first group should be one the first \code{n1} rows.}
 
-\item{delta.z}{A matrix which combines the delta.x and delta.y matricies}
+\item{delta.z}{A matrix containing the censoring status of each observation in \code{z}.}
 
-\item{n1}{Integer. Should be specified as number of rows in the x matrix}
-
-\item{n2}{Integer. Shouled be specified as number of rows in the y matrix}
-
-\item{p}{Integer. No clue what it does}
-
-\item{g.test}{Numeric from gehan}
+\item{n1}{An integer specifying the sample size of the first group.}
 }
 \value{
-Numeric
+A p-value.
 }
 \description{
-Performs permutations of the mvlogrank test through random sub sampling
+Computes the p-value of the multivariate permutation logrank test described in Persson et al. (2019).
+}
+\details{
+Multivariate version of the logrank and Gehan tests were described by
+Wei & Lachin (1984). Persson et al. (2019) described permutation versions of
+these tests, with improved performance.
 }
 \examples{
-See ?MultSurvTests
+# Diabetes data:
+?diabetes
+# Survival times for the two groups:
+x <- as.matrix(subset(diabetes, LASER==1)[c(6,8)])
+y <- as.matrix(subset(diabetes, LASER==2)[c(6,8)])
+# Censoring status for the two groups:
+delta.x <- as.matrix(subset(diabetes, LASER==1)[c(7,9)])
+delta.y <- as.matrix(subset(diabetes, LASER==2)[c(7,9)])
+# Create the input for the test:
+z <- rbind(x, y)
+delta.z <- rbind(delta.x, delta.y)
+# Run the test with 99 permutations:
+perm_mvlogrank(B = 99, z, delta.z, n1 = nrow(x))
 
 }
