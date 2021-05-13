@@ -1,5 +1,5 @@
 # MultSurvTests
-R package for multivariate two-sample survival tests, implementing the tests described in [Persson et al. (2019)](https://onlinelibrary.wiley.com/doi/abs/10.1002/pst.1938).
+This R package contains multivariate two-sample survival permutation tests, based on the logrank and Gehan statistics. The implemented tests are described in [Persson et al. (2019)](https://onlinelibrary.wiley.com/doi/abs/10.1002/pst.1938).
 
 Installation:
 
