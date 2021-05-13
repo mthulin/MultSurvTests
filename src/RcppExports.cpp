@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // gehan
 arma::mat gehan(arma::mat x, arma::mat y, arma::mat delta_x, arma::mat delta_y, int n1, int n2, int p, int k, int l);
-RcppExport SEXP MultSurvTests_gehan(SEXP xSEXP, SEXP ySEXP, SEXP delta_xSEXP, SEXP delta_ySEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP pSEXP, SEXP kSEXP, SEXP lSEXP) {
+RcppExport SEXP _MultSurvTests_gehan(SEXP xSEXP, SEXP ySEXP, SEXP delta_xSEXP, SEXP delta_ySEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP pSEXP, SEXP kSEXP, SEXP lSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -27,7 +27,7 @@ END_RCPP
 }
 // mvlogrank
 arma::mat mvlogrank(arma::mat x, arma::mat y, arma::mat delta_x, arma::mat delta_y, int n1, int n2, int p, int k, int l);
-RcppExport SEXP MultSurvTests_mvlogrank(SEXP xSEXP, SEXP ySEXP, SEXP delta_xSEXP, SEXP delta_ySEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP pSEXP, SEXP kSEXP, SEXP lSEXP) {
+RcppExport SEXP _MultSurvTests_mvlogrank(SEXP xSEXP, SEXP ySEXP, SEXP delta_xSEXP, SEXP delta_ySEXP, SEXP n1SEXP, SEXP n2SEXP, SEXP pSEXP, SEXP kSEXP, SEXP lSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,4 +43,15 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(mvlogrank(x, y, delta_x, delta_y, n1, n2, p, k, l));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_MultSurvTests_gehan", (DL_FUNC) &_MultSurvTests_gehan, 9},
+    {"_MultSurvTests_mvlogrank", (DL_FUNC) &_MultSurvTests_mvlogrank, 9},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_MultSurvTests(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

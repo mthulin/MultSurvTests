@@ -11,11 +11,11 @@ gehan(x, y, delta_x, delta_y, n1, n2, p, k = 1L, l = 1L)
 
 \item{y}{Matrix}
 
-\item{n1}{Integer. Set as rows in x}
+\item{n1}{Integer. Set as the number of rows in x}
 
-\item{n2}{Integer. Set as rows in y}
+\item{n2}{Integer. Set as the number of rows in y}
 
-\item{p}{Integer. No clue}
+\item{p}{Integer. Set as the number of columns in x and y}
 
 \item{delta.x}{Matrix}
 
@@ -25,18 +25,5 @@ gehan(x, y, delta_x, delta_y, n1, n2, p, k = 1L, l = 1L)
 1x1 matrix containing a numeric
 }
 \description{
-Performs the gehan test
-}
-\examples{
-data <- as.matrix(wltestdata)
-x <- data[1:23, c(2, 4, 6, 8)]
-y <- data[24:47, c(2, 4, 6, 8)]
-delta.x <- data[1:23, c(3, 5, 7, 9)]
-delta.y <- data[24:47, c(3, 5, 7, 9)]
-
-n1 <- dim(x)[1]
-n2 <- dim(y)[1]
-p <- dim(x)[2]
-
-gehan(x, y, delta.x, delta.y, n1, n2, p)
+Computes the multivariate Gehan test statistic.
 }

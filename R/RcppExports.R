@@ -3,63 +3,39 @@
 
 #' Gehan test
 #'
-#' Performs the gehan test
+#' Computes the multivariate Gehan test statistic.
 #'
 #' @param x Matrix
 #' @param y Matrix
 #' @param delta.x Matrix
 #' @param delta.y Matrix
-#' @param n1 Integer. Set as rows in x
-#' @param n2 Integer. Set as rows in y
-#' @param p Integer. No clue
+#' @param n1 Integer. Set as the number of rows in x
+#' @param n2 Integer. Set as the number of rows in y
+#' @param p Integer. Set as the number of columns in x and y
 #'
 #' @return 1x1 matrix containing a numeric 
 #'
-#' @examples
-#' data <- as.matrix(wltestdata)
-#' x <- data[1:23, c(2, 4, 6, 8)]
-#' y <- data[24:47, c(2, 4, 6, 8)]
-#' delta.x <- data[1:23, c(3, 5, 7, 9)]
-#' delta.y <- data[24:47, c(3, 5, 7, 9)]
-#'
-#' n1 <- dim(x)[1]
-#' n2 <- dim(y)[1]
-#' p <- dim(x)[2]
-#'
-#' gehan(x, y, delta.x, delta.y, n1, n2, p)
 #' @export
 gehan <- function(x, y, delta_x, delta_y, n1, n2, p, k = 1L, l = 1L) {
-    .Call('MultSurvTests_gehan', PACKAGE = 'MultSurvTests', x, y, delta_x, delta_y, n1, n2, p, k, l)
+    .Call('_MultSurvTests_gehan', PACKAGE = 'MultSurvTests', x, y, delta_x, delta_y, n1, n2, p, k, l)
 }
 
 #' Mvlogrank test
 #'
-#' Performs the mvlogrank test
+#' Computes the multivariate logrank test statistic.
 #'
 #' @param x Matrix
 #' @param y Matrix
 #' @param delta.x Matrix
 #' @param delta.y Matrix
-#' @param n1 Integer. Set as rows in x
-#' @param n2 Integer. Set as rows in y
-#' @param p Integer. No clue
+#' @param n1 Integer. Set as the number of rows in x
+#' @param n2 Integer. Set as the number of rows in y
+#' @param p Integer. Set as the number of columns in x and y
 #'
 #' @return 1x1 matrix containing a numeric 
 #'
-#' @examples
-#' data <- as.matrix(wltestdata)
-#' x <- data[1:23, c(2, 4, 6, 8)]
-#' y <- data[24:47, c(2, 4, 6, 8)]
-#' delta.x <- data[1:23, c(3, 5, 7, 9)]
-#' delta.y <- data[24:47, c(3, 5, 7, 9)]
-#'
-#' n1 <- dim(x)[1]
-#' n2 <- dim(y)[1]
-#' p <- dim(x)[2]
-#'
-#' mvlogrank(x, y, delta.x, delta.y, n1, n2, p)
 #' @export
 mvlogrank <- function(x, y, delta_x, delta_y, n1, n2, p, k = 1L, l = 1L) {
-    .Call('MultSurvTests_mvlogrank', PACKAGE = 'MultSurvTests', x, y, delta_x, delta_y, n1, n2, p, k, l)
+    .Call('_MultSurvTests_mvlogrank', PACKAGE = 'MultSurvTests', x, y, delta_x, delta_y, n1, n2, p, k, l)
 }
 
