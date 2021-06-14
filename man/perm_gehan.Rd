@@ -4,7 +4,7 @@
 \alias{perm_gehan}
 \title{Multivariate permutation Gehan test}
 \usage{
-perm_gehan(B = 999, z, delta.z, n1, g.test)
+perm_gehan(B = 999, z, delta.z, n1)
 }
 \arguments{
 \item{B}{An integer specifying the number of permutations to perform. The default is 999. It is recommended to use \code{\link{choose_B}} for choosing \code{B}.}
@@ -38,7 +38,15 @@ delta.y <- as.matrix(subset(diabetes, LASER==2)[c(7,9)])
 # Create the input for the test:
 z <- rbind(x, y)
 delta.z <- rbind(delta.x, delta.y)
-# Run the test with 99 permutations:
-perm_gehan(B = 99, z, delta.z, n1 = nrow(x))
+# Run the test with 50 permutations:
+perm_gehan(B = 50, z, delta.z, n1 = nrow(x))
+# In most cases, it is preferable to use more than 50
+# permutations for computing p-values. choose_B() can
+# be used to determine how many permutations are needed.
 
+}
+\references{
+\insertRef{persson19}{MultSurvTests}
+
+\insertRef{wei84}{MultSurvTests}
 }
