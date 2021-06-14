@@ -7,11 +7,13 @@
 #'
 #' @param x Matrix
 #' @param y Matrix
-#' @param delta.x Matrix
-#' @param delta.y Matrix
+#' @param delta_x Matrix
+#' @param delta_y Matrix
 #' @param n1 Integer. Set as the number of rows in x
 #' @param n2 Integer. Set as the number of rows in y
 #' @param p Integer. Set as the number of columns in x and y
+#' @param k Integer. Use the default value.
+#' @param l Integer. Use the default value.
 #'
 #' @return 1x1 matrix containing a numeric 
 #'
@@ -26,11 +28,13 @@ gehan <- function(x, y, delta_x, delta_y, n1, n2, p, k = 1L, l = 1L) {
 #'
 #' @param x Matrix
 #' @param y Matrix
-#' @param delta.x Matrix
-#' @param delta.y Matrix
+#' @param delta_x Matrix
+#' @param delta_y Matrix
 #' @param n1 Integer. Set as the number of rows in x
 #' @param n2 Integer. Set as the number of rows in y
 #' @param p Integer. Set as the number of columns in x and y
+#' @param k Integer. Use the default value.
+#' @param l Integer. Use the default value.
 #'
 #' @return 1x1 matrix containing a numeric 
 #'

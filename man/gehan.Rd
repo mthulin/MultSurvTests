@@ -11,15 +11,19 @@ gehan(x, y, delta_x, delta_y, n1, n2, p, k = 1L, l = 1L)
 
 \item{y}{Matrix}
 
+\item{delta_x}{Matrix}
+
+\item{delta_y}{Matrix}
+
 \item{n1}{Integer. Set as the number of rows in x}
 
 \item{n2}{Integer. Set as the number of rows in y}
 
 \item{p}{Integer. Set as the number of columns in x and y}
 
-\item{delta.x}{Matrix}
+\item{k}{Integer. Use the default value.}
 
-\item{delta.y}{Matrix}
+\item{l}{Integer. Use the default value.}
 }
 \value{
 1x1 matrix containing a numeric

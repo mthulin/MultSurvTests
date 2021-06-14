@@ -1,7 +1,7 @@
 # MultSurvTests
-This R package contains multivariate two-sample survival permutation tests, based on the logrank and Gehan statistics. The implemented tests are described in [Persson et al. (2019)](https://onlinelibrary.wiley.com/doi/abs/10.1002/pst.1938).
+This R package contains multivariate two-sample survival permutation tests, based on the logrank and Gehan statistics. The tests are described in [Persson et al. (2019)](https://onlinelibrary.wiley.com/doi/abs/10.1002/pst.1938).
 
-Installation:
+To install the development version from GitHub:
 
 ```
 library(devtools)
@@ -30,4 +30,8 @@ delta.z <- rbind(delta.x, delta.y)
 # Run the tests with 99 permutations:
 perm_gehan(B = 99, z, delta.z, n1 = nrow(x))
 perm_mvlogrank(B = 99, z, delta.z, n1 = nrow(x))
+
+# In most cases, it is preferable to use more than 99
+# permutations for computing p-values. choose_B() can
+# be used to determine how many permutations are needed.
 ```

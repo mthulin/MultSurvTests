@@ -25,6 +25,13 @@ Computations are based on the Clopper-Pearson interval, using a formula from
 Thulin (2014). The procedure is described in Section 3.3 in Persson et al. (2019).
 }
 \examples{
+# B required to achieve an expected width of 0.02 when
+# the p-value is approximately 0.1:
+choose_B(p0 = 0.1, width = 0.02)
 
+}
+\references{
+\insertRef{persson19}{MultSurvTests}
 
+\insertRef{thulin14}{MultSurvTests}
 }
