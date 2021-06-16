@@ -1,6 +1,9 @@
 
 ## Resubmission
-This is a resubmission. In this version, we have fixed the invalid URL in man/diabetes.Rd as requested.
+This is a resubmission. In this version, we have fixed the following:
+
+- Added DOI numbers in the references, to allow for automatic linking.
+- Provided author names/roles/email addresses using the Authors@R format.
 
 ## Test environments
 * local Ubuntu 18.04 install, R 4.0.3
