@@ -2,8 +2,7 @@
 ## Resubmission
 This is a resubmission. In this version, we have fixed the following:
 
-- Added DOI numbers in the references, to allow for automatic linking.
-- Provided author names/roles/email addresses using the Authors@R format.
+- Fixed the erroneous DOI reference in man/diabetes.Rd, which is now inserted using \doi
 
 ## Test environments
 * local Ubuntu 18.04 install, R 4.0.3

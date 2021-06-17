@@ -8,6 +8,6 @@ Diabetic retinopathy: how strongly are times to blindness of a treated and an un
 \format{A data.frame containing 197 rows.}
 \source{\url{https://www.mayo.edu/research/documents/diabeteshtml/DOC-10027460/}}
 \references{
-Huster WJ, Brookmeyer R, Self SG. Modelling paired survival data with covariates. Biometrics 1989; 45:145-156. \url{https://doi.org/10.2307/2532041/}
+\insertRef{huster89}{MultSurvTests}
 }
 \keyword{datasets}
