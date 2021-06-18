@@ -1,6 +1,12 @@
 # MultSurvTests
 This R package contains multivariate two-sample survival permutation tests, based on the logrank and Gehan statistics. The tests are described in [Persson et al. (2019)](https://onlinelibrary.wiley.com/doi/abs/10.1002/pst.1938).
 
+To install the package from CRAN:
+
+```
+install.packages("MultSurvTests")
+```
+
 To install the development version from GitHub:
 
 ```
